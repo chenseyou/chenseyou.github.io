@@ -1,0 +1,1859 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="creative-medium" content="interactive-prototype">
+<title>千禧年信息真理社 | 千年科技震撼人心</title>
+<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@400;600&family=Noto+Sans+SC:wght@300;400;500;700&display=swap">
+<style>
+/* ============================================
+   千禧年信息真理社 - 赛博朋克招新页
+   ============================================ */
+
+:root {
+  --cyber-bg: #050a1a;
+  --cyber-bg-2: #0a1628;
+  --cyber-panel: rgba(10, 22, 40, 0.7);
+  --cyber-border: rgba(0, 200, 255, 0.3);
+  --cyber-blue: #00d4ff;
+  --cyber-cyan: #00ffea;
+  --cyber-white: #e6f9ff;
+  --cyber-accent: #7b2fff;
+  --cyber-glow: rgba(0, 212, 255, 0.6);
+  --cyber-text: #b8d8e8;
+  --cyber-text-dim: #5a7a90;
+  --font-display: 'Orbitron', 'Noto Sans SC', sans-serif;
+  --font-mono: 'JetBrains Mono', 'Noto Sans SC', monospace;
+  --font-body: 'Noto Sans SC', sans-serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 70px;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--cyber-bg);
+  color: var(--cyber-text);
+  overflow-x: hidden;
+  line-height: 1.7;
+  position: relative;
+}
+
+/* --- 固定居中半透明Logo背景层 --- */
+.logo-bg {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 550px;
+  height: 550px;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-bg-inner {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(0, 212, 255, 0.3);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 212, 255, 0.08) 0%, transparent 70%);
+  position: relative;
+}
+
+.logo-bg-inner img {
+  width: 70%;
+  height: 70%;
+  object-fit: contain;
+}
+
+.logo-bg-sweep {
+  position: fixed;
+  top: 0;
+  left: -50%;
+  width: 50%;
+  height: 100vh;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    transparent 25%,
+    rgba(0, 255, 234, 0.1) 50%,
+    transparent 75%,
+    transparent 100%
+  );
+  animation: logoSweep 9s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes logoSweep {
+  0% { left: -50%; opacity: 0; }
+  10% { left: -50%; opacity: 1; }
+  55% { left: 100%; opacity: 1; }
+  65% { left: 100%; opacity: 0; }
+  100% { left: 100%; opacity: 0; }
+}
+
+.logo-bg::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border-radius: 50%;
+  box-shadow: inset 0 0 40px rgba(0, 212, 255, 0);
+  animation: logoGlowPulse 6s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes logoGlowPulse {
+  0%, 40%, 60%, 100% { box-shadow: inset 0 0 40px rgba(0, 212, 255, 0); opacity: 0.1; }
+  48%, 52% { box-shadow: inset 0 0 60px rgba(0, 255, 234, 0.4); opacity: 0.25; }
+}
+
+@media (max-width: 600px) {
+  .logo-bg { width: 380px; height: 380px; }
+}
+
+#codeRainCanvas {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background:
+    linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+  animation: gridPulse 8s ease-in-out infinite;
+}
+
+@keyframes gridPulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+.navbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 64px;
+  background: rgba(5, 10, 26, 0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--cyber-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  z-index: 100;
+}
+
+.navbar::before {
+  content: '';
+  position: absolute;
+  bottom: -1px; left: 0;
+  height: 1px; width: 100%;
+  background: linear-gradient(90deg, transparent, var(--cyber-blue), transparent);
+  animation: navGlow 3s ease-in-out infinite;
+}
+
+@keyframes navGlow {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+.logo-box {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.logo-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  list-style: none;
+}
+
+.nav-links a {
+  color: var(--cyber-text);
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.5px;
+  padding: 8px 14px;
+  border-radius: 2px;
+  position: relative;
+  transition: all 0.25s ease;
+}
+
+.nav-links a::before {
+  content: '>';
+  opacity: 0;
+  position: absolute;
+  left: 2px; top: 50%;
+  transform: translateY(-50%);
+  color: var(--cyber-cyan);
+  transition: all 0.2s ease;
+}
+
+.nav-links a:hover {
+  color: var(--cyber-cyan);
+  text-shadow: 0 0 8px var(--cyber-glow);
+  padding-left: 18px;
+}
+
+.nav-links a:hover::before { opacity: 1; left: 0; }
+
+.menu-toggle {
+  display: none;
+  background: none;
+  border: 1px solid var(--cyber-border);
+  color: var(--cyber-blue);
+  width: 40px; height: 40px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.section {
+  position: relative;
+  z-index: 1;
+  padding: 100px 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--cyber-cyan);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-label::before {
+  content: '//';
+  color: var(--cyber-accent);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 900;
+  color: var(--cyber-white);
+  margin-bottom: 16px;
+  letter-spacing: 2px;
+}
+
+.section-sub {
+  font-size: 15px;
+  color: var(--cyber-text-dim);
+  margin-bottom: 48px;
+  max-width: 600px;
+}
+
+.glitch {
+  position: relative;
+  display: inline-block;
+}
+
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+}
+
+.glitch::before {
+  left: 2px;
+  text-shadow: -1px 0 var(--cyber-accent);
+  clip: rect(24px, 550px, 90px, 0);
+  animation: glitch-anim 3s infinite linear alternate-reverse;
+}
+
+.glitch::after {
+  left: -2px;
+  text-shadow: -1px 0 var(--cyber-cyan);
+  clip: rect(85px, 550px, 140px, 0);
+  animation: glitch-anim2 2.5s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim {
+  0% { clip: rect(8px, 9999px, 66px, 0); }
+  20% { clip: rect(44px, 9999px, 30px, 0); }
+  40% { clip: rect(12px, 9999px, 80px, 0); }
+  60% { clip: rect(60px, 9999px, 20px, 0); }
+  80% { clip: rect(30px, 9999px, 60px, 0); }
+  100% { clip: rect(5px, 9999px, 90px, 0); }
+}
+
+@keyframes glitch-anim2 {
+  0% { clip: rect(50px, 9999px, 10px, 0); }
+  25% { clip: rect(5px, 9999px, 40px, 0); }
+  50% { clip: rect(70px, 9999px, 25px, 0); }
+  75% { clip: rect(20px, 9999px, 55px, 0); }
+  100% { clip: rect(45px, 9999px, 15px, 0); }
+}
+
+.neon-hover { transition: all 0.3s ease; }
+
+.neon-hover:hover {
+  text-shadow:
+    0 0 5px var(--cyber-glow),
+    0 0 10px var(--cyber-glow),
+    0 0 20px var(--cyber-glow),
+    0 0 40px var(--cyber-blue);
+  color: var(--cyber-white);
+}
+
+.typewriter {
+  font-family: var(--font-mono);
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 2px solid var(--cyber-cyan);
+  animation: blinkCursor 0.8s step-end infinite;
+  display: inline-block;
+}
+
+@keyframes blinkCursor {
+  0%, 50% { border-color: var(--cyber-cyan); }
+  51%, 100% { border-color: transparent; }
+}
+
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 80px 24px 120px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-sublabel {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--cyber-cyan);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 7vw, 72px);
+  font-weight: 900;
+  color: var(--cyber-white);
+  letter-spacing: 4px;
+  line-height: 1.15;
+  margin-bottom: 24px;
+  text-shadow: 0 0 30px rgba(0, 212, 255, 0.3);
+}
+
+.hero-title .accent { color: var(--cyber-blue); }
+
+.hero-slogan {
+  font-family: var(--font-display);
+  font-size: clamp(16px, 2.5vw, 24px);
+  color: var(--cyber-text);
+  letter-spacing: 6px;
+  margin-bottom: 16px;
+  font-weight: 400;
+}
+
+.hero-tagline {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--cyber-text-dim);
+  margin-top: 32px;
+  max-width: 500px;
+  line-height: 1.8;
+}
+
+.hero-tagline .hl { color: var(--cyber-cyan); }
+
+.scroll-indicator {
+  position: absolute;
+  bottom: 40px; left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: var(--cyber-text-dim);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 2px;
+  animation: scrollBounce 2s ease-in-out infinite;
+}
+
+.scroll-indicator .arrow {
+  width: 24px; height: 24px;
+  border-right: 1px solid var(--cyber-blue);
+  border-bottom: 1px solid var(--cyber-blue);
+  transform: rotate(45deg);
+  box-shadow: 0 0 8px var(--cyber-glow);
+}
+
+@keyframes scrollBounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.5; }
+  50% { transform: translateX(-50%) translateY(10px); opacity: 1; }
+}
+
+.terminal-panel {
+  background: var(--cyber-panel);
+  border: 1px solid var(--cyber-border);
+  border-radius: 4px;
+  backdrop-filter: blur(8px);
+  position: relative;
+  overflow: hidden;
+}
+
+.terminal-panel::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 32px;
+  background: linear-gradient(180deg, rgba(0, 212, 255, 0.1), transparent);
+  border-bottom: 1px solid var(--cyber-border);
+  pointer-events: none;
+}
+
+.terminal-header {
+  height: 32px;
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
+  gap: 6px;
+  border-bottom: 1px solid var(--cyber-border);
+  background: rgba(0, 212, 255, 0.04);
+}
+
+.terminal-dot { width: 8px; height: 8px; border-radius: 50%; }
+.terminal-dot.r { background: #ff5f57; }
+.terminal-dot.y { background: #febc2e; }
+.terminal-dot.g { background: #28c840; }
+
+.terminal-title {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--cyber-text-dim);
+  margin-left: 12px;
+  letter-spacing: 1px;
+}
+
+.terminal-body {
+  padding: 24px;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.terminal-body .prompt { color: var(--cyber-cyan); }
+.terminal-body .cmd { color: var(--cyber-white); }
+.terminal-body .comment { color: var(--cyber-text-dim); font-style: italic; }
+.terminal-body .string { color: #8be9fd; }
+.terminal-body .var { color: var(--cyber-blue); }
+.terminal-body .tag { color: #ff79c6; }
+
+.about-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+.about-text {
+  font-size: 15px;
+  line-height: 1.9;
+  color: var(--cyber-text);
+}
+
+.about-text p { margin-bottom: 16px; }
+.about-text strong { color: var(--cyber-cyan); font-weight: 600; }
+
+.about-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.stat-card {
+  background: var(--cyber-panel);
+  border: 1px solid var(--cyber-border);
+  border-radius: 4px;
+  padding: 24px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+  border-color: var(--cyber-blue);
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 4px; height: 100%;
+  background: linear-gradient(180deg, var(--cyber-blue), var(--cyber-accent));
+}
+
+.stat-number {
+  font-family: var(--font-display);
+  font-size: 36px;
+  font-weight: 900;
+  color: var(--cyber-blue);
+  text-shadow: 0 0 10px var(--cyber-glow);
+  margin-bottom: 6px;
+}
+
+.stat-label {
+  font-size: 12px;
+  color: var(--cyber-text-dim);
+  letter-spacing: 1px;
+}
+
+.carousel-section { margin-top: 48px; }
+
+.carousel {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid var(--cyber-border);
+  border-radius: 4px;
+  background: var(--cyber-panel);
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.carousel-slide {
+  min-width: 100%;
+  aspect-ratio: 16 / 7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.carousel-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px; height: 44px;
+  background: rgba(5, 10, 26, 0.7);
+  border: 1px solid var(--cyber-border);
+  border-radius: 2px;
+  color: var(--cyber-cyan);
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  z-index: 2;
+}
+
+.carousel-btn:hover {
+  background: rgba(0, 212, 255, 0.15);
+  border-color: var(--cyber-blue);
+  box-shadow: 0 0 15px var(--cyber-glow);
+}
+
+.carousel-btn.prev { left: 16px; }
+.carousel-btn.next { right: 16px; }
+
+.carousel-indicators {
+  position: absolute;
+  bottom: 16px; left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 2;
+}
+
+.carousel-indicator {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--cyber-text-dim);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.carousel-indicator.active {
+  background: var(--cyber-cyan);
+  box-shadow: 0 0 8px var(--cyber-glow);
+  width: 24px;
+  border-radius: 4px;
+}
+
+.dept-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+
+.dept-card {
+  background: var(--cyber-panel);
+  border: 1px solid var(--cyber-border);
+  border-radius: 4px;
+  padding: 36px 32px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.dept-card:hover {
+  border-color: var(--cyber-blue);
+  box-shadow: 0 0 30px rgba(0, 212, 255, 0.12);
+}
+
+.dept-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--cyber-blue), var(--cyber-cyan));
+}
+
+.dept-card:nth-child(2)::before {
+  background: linear-gradient(90deg, var(--cyber-accent), var(--cyber-blue));
+}
+
+.dept-icon {
+  width: 56px; height: 56px;
+  border: 1px solid var(--cyber-border);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  background: rgba(0, 212, 255, 0.05);
+}
+
+.dept-icon svg {
+  width: 28px; height: 28px;
+  stroke: var(--cyber-cyan);
+  fill: none;
+  stroke-width: 1.5;
+}
+
+.dept-name {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--cyber-white);
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+
+.dept-tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--cyber-cyan);
+  border: 1px solid var(--cyber-border);
+  padding: 2px 10px;
+  border-radius: 2px;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+}
+
+.dept-desc {
+  font-size: 14px;
+  color: var(--cyber-text);
+  line-height: 1.9;
+  word-break: break-all;
+}
+
+.activity-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.activity-img {
+  aspect-ratio: 4 / 3;
+  border: 1px solid var(--cyber-border);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.activity-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.activity-img:hover {
+  border-color: var(--cyber-blue);
+  box-shadow: 0 0 25px rgba(0, 212, 255, 0.1);
+  transform: translateY(-4px);
+}
+
+.activity-desc {
+  background: var(--cyber-panel);
+  border: 1px solid var(--cyber-border);
+  border-radius: 4px;
+  padding: 24px 28px;
+}
+
+.activity-desc p {
+  font-size: 14px;
+  line-height: 2;
+  color: var(--cyber-text-dim);
+  font-family: var(--font-mono);
+}
+
+.activity-desc p .dash { color: var(--cyber-cyan); margin-right: 8px; }
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.feature-card {
+  background: var(--cyber-panel);
+  border: 1px solid var(--cyber-border);
+  border-radius: 4px;
+  padding: 32px 28px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  cursor: default;
+}
+
+.feature-card:hover {
+  border-color: var(--cyber-cyan);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(0, 212, 255, 0.12);
+}
+
+.feature-card .feature-num {
+  font-family: var(--font-display);
+  font-size: 56px;
+  font-weight: 900;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--cyber-border);
+  position: absolute;
+  top: 12px; right: 20px;
+  line-height: 1;
+  transition: all 0.3s ease;
+}
+
+.feature-card:hover .feature-num {
+  -webkit-text-stroke: 1px var(--cyber-blue);
+  color: rgba(0, 212, 255, 0.05);
+}
+
+.feature-card h3 {
+  font-family: var(--font-display);
+  font-size: 18px;
+  color: var(--cyber-white);
+  margin-bottom: 12px;
+  letter-spacing: 1px;
+  position: relative;
+  z-index: 1;
+}
+
+.feature-card p {
+  font-size: 14px;
+  color: var(--cyber-text);
+  line-height: 1.8;
+  position: relative;
+  z-index: 1;
+}
+
+.feature-icon {
+  width: 40px; height: 40px;
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 1;
+}
+
+.feature-icon svg {
+  width: 100%; height: 100%;
+  stroke: var(--cyber-cyan);
+  fill: none;
+  stroke-width: 1.5;
+}
+
+.recruit-flow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  position: relative;
+  margin-bottom: 48px;
+}
+
+.flow-step {
+  background: var(--cyber-panel);
+  border: 1px solid var(--cyber-border);
+  padding: 32px 24px;
+  text-align: center;
+  position: relative;
+}
+
+.flow-step:not(:last-child)::after {
+  content: '→';
+  position: absolute;
+  right: -14px; top: 50%;
+  transform: translateY(-50%);
+  font-size: 20px;
+  color: var(--cyber-blue);
+  z-index: 2;
+  text-shadow: 0 0 8px var(--cyber-glow);
+}
+
+.flow-step-num {
+  font-family: var(--font-display);
+  font-size: 40px;
+  font-weight: 900;
+  color: var(--cyber-blue);
+  text-shadow: 0 0 10px var(--cyber-glow);
+  opacity: 0.3;
+  margin-bottom: 12px;
+}
+
+.flow-step-title {
+  font-family: var(--font-display);
+  font-size: 16px;
+  color: var(--cyber-white);
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+
+.flow-step-desc {
+  font-size: 13px;
+  color: var(--cyber-text-dim);
+  line-height: 1.7;
+}
+
+.recruit-info {
+  background: var(--cyber-panel);
+  border: 1px solid var(--cyber-border);
+  border-left: 3px solid var(--cyber-cyan);
+  border-radius: 0 4px 4px 0;
+  padding: 24px 28px;
+}
+
+.recruit-info ul { list-style: none; }
+
+.recruit-info li {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--cyber-text);
+  padding: 10px 0;
+  border-bottom: 1px dashed var(--cyber-border);
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.recruit-info li:last-child { border-bottom: none; }
+
+.recruit-info li .key {
+  color: var(--cyber-cyan);
+  flex-shrink: 0;
+  min-width: 90px;
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.faq-item {
+  background: var(--cyber-panel);
+  border: 1px solid var(--cyber-border);
+  border-radius: 4px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.faq-item:hover { border-color: var(--cyber-blue); }
+
+.faq-q {
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  user-select: none;
+}
+
+.faq-q-text {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--cyber-white);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.faq-q-text .q-tag { color: var(--cyber-cyan); font-weight: 700; }
+
+.faq-toggle {
+  width: 24px; height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--cyber-blue);
+  font-size: 18px;
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+
+.faq-item.open .faq-toggle { transform: rotate(45deg); }
+
+.faq-a {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+}
+
+.faq-item.open .faq-a { max-height: 300px; }
+
+.faq-a-inner {
+  padding: 0 24px 20px;
+  padding-left: 52px;
+  font-size: 14px;
+  color: var(--cyber-text);
+  line-height: 1.8;
+  border-top: 1px dashed var(--cyber-border);
+  padding-top: 16px;
+  margin-top: -1px;
+}
+
+.contact-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: center;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.contact-icon {
+  width: 36px; height: 36px;
+  border: 1px solid var(--cyber-border);
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: rgba(0, 212, 255, 0.05);
+}
+
+.contact-icon svg {
+  width: 18px; height: 18px;
+  stroke: var(--cyber-cyan);
+  fill: none;
+  stroke-width: 1.5;
+}
+
+.contact-item-text .label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--cyber-text-dim);
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+
+.contact-item-text .value {
+  font-size: 15px;
+  color: var(--cyber-white);
+  font-family: var(--font-mono);
+}
+
+.qr-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 1;
+  max-width: 280px;
+  margin: 0 auto;
+  background:
+    linear-gradient(135deg, var(--cyber-bg-2), rgba(123, 47, 255, 0.1)),
+    repeating-linear-gradient(0deg, rgba(0, 212, 255, 0.06), rgba(0, 212, 255, 0.06) 3px, transparent 3px, transparent 8px),
+    repeating-linear-gradient(90deg, rgba(0, 212, 255, 0.06), rgba(0, 212, 255, 0.06) 3px, transparent 3px, transparent 8px);
+  border: 1px solid var(--cyber-border);
+  border-radius: 4px;
+  position: relative;
+}
+
+.qr-placeholder .qr-label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--cyber-text-dim);
+  letter-spacing: 2px;
+  background: var(--cyber-bg);
+  padding: 8px 16px;
+  border: 1px dashed var(--cyber-border);
+  text-align: center;
+}
+
+.footer {
+  height: 60px;
+  border-top: 1px solid var(--cyber-border);
+  position: relative;
+  z-index: 1;
+}
+
+.footer::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--cyber-blue), transparent);
+}
+
+@media (max-width: 900px) {
+  .about-content, .dept-grid, .activity-grid, .feature-grid, .contact-wrap {
+    grid-template-columns: 1fr;
+  }
+  .recruit-flow { grid-template-columns: 1fr; }
+  .flow-step:not(:last-child)::after {
+    content: '↓';
+    right: 50%; top: auto; bottom: -12px;
+    transform: translateX(50%);
+  }
+  .section { padding: 60px 20px; }
+  .navbar { padding: 0 16px; }
+  .menu-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .nav-links {
+    position: absolute;
+    top: 64px; left: 0; right: 0;
+    flex-direction: column;
+    background: rgba(5, 10, 26, 0.98);
+    border-bottom: 1px solid var(--cyber-border);
+    padding: 16px;
+    gap: 4px;
+    transform: translateY(-120%);
+    transition: transform 0.3s ease;
+    max-height: 70vh;
+    overflow-y: auto;
+  }
+  .nav-links.open { transform: translateY(0); }
+  .nav-links a { display: block; padding: 12px 16px; width: 100%; }
+  .about-stats { grid-template-columns: 1fr 1fr; }
+  .stat-number { font-size: 28px; }
+  .hero-title { letter-spacing: 2px; }
+  .carousel-slide { aspect-ratio: 4 / 3; }
+}
+
+@media (max-width: 480px) {
+  .about-stats { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .stat-card { padding: 16px 8px; }
+  .stat-number { font-size: 24px; }
+  .dept-card { padding: 24px 20px; }
+  .feature-card { padding: 24px 20px; }
+  .feature-card .feature-num { font-size: 40px; }
+  .terminal-body { padding: 16px; font-size: 12px; }
+}
+
+.preloader {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: #050a1a;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: opacity 0.8s ease-out;
+}
+
+.preloader.hidden { opacity: 0; pointer-events: none; }
+
+.preloader-video {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
+}
+
+.preloader-loading {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  z-index: 2;
+  transition: opacity 0.4s ease;
+}
+
+.preloader-loading.hidden { opacity: 0; }
+
+.preloader-loading-dot {
+  width: 16px; height: 16px;
+  border: 2px solid var(--cyber-border);
+  border-top-color: var(--cyber-cyan);
+  border-radius: 50%;
+  animation: preloaderSpin 1s linear infinite;
+  box-shadow: 0 0 10px var(--cyber-glow);
+}
+
+@keyframes preloaderSpin { to { transform: rotate(360deg); } }
+
+.preloader-loading-text {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--cyber-text-dim);
+  letter-spacing: 3px;
+}
+
+.preloader-hint {
+  position: absolute;
+  bottom: 40px; left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--cyber-text-dim);
+  letter-spacing: 1px;
+  z-index: 2;
+  animation: preloaderHintPulse 2s ease-in-out infinite;
+}
+
+@keyframes preloaderHintPulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+</style>
+</head>
+<body>
+
+<div class="preloader" id="preloader">
+  <video class="preloader-video" id="preloaderVideo" autoplay muted playsinline poster="">
+    <source src="intro.mp4" type="video/mp4">
+  </video>
+  <div class="preloader-loading" id="preloaderLoading">
+    <div class="preloader-loading-dot"></div>
+    <div class="preloader-loading-text">LOADING...</div>
+  </div>
+  <div class="preloader-hint">点击任意位置跳过 ››</div>
+</div>
+
+<div class="logo-bg" id="logoBg">
+  <div class="logo-bg-inner">
+    <img src="logo2.jpeg" alt="logo">
+  </div>
+</div>
+
+<div class="logo-bg-sweep"></div>
+
+<canvas id="codeRainCanvas"></canvas>
+
+<nav class="navbar">
+  <div class="logo-box" title="LOGO位置"><img src="logo.png" alt="logo"></div>
+  <button class="menu-toggle" id="menuToggle" aria-label="菜单">☰</button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#hero">首页</a></li>
+    <li><a href="#about">关于我们</a></li>
+    <li><a href="#departments">部门架构</a></li>
+    <li><a href="#activities">活动与成果</a></li>
+    <li><a href="#why-us">加入我们</a></li>
+    <li><a href="#recruit">招新详情</a></li>
+    <li><a href="#faq">常见问题</a></li>
+    <li><a href="#contact">联系我们</a></li>
+  </ul>
+</nav>
+
+<section class="hero" id="hero">
+  <div class="hero-sublabel">
+    <span class="typewriter" id="heroTypewriter">// INITIALIZING MILLENNIUM TRUTH SOCIETY...</span>
+  </div>
+  <h1 class="hero-title glitch" data-text="千禧年信息真理社">
+    千禧年<span class="accent">信息真理</span>社
+  </h1>
+  <p class="hero-slogan">千年科技 · 震撼人心</p>
+  <p class="hero-tagline">
+    <span class="hl">&gt;</span> 南昌市第二中学 · 高一年级专属招新
+    <br>
+    <span class="hl">&gt;</span> 零基础友好 · 技术从零起步
+  </p>
+  <div class="scroll-indicator">
+    <span>SCROLL DOWN</span>
+    <div class="arrow"></div>
+  </div>
+</section>
+
+<section class="section" id="about">
+  <div class="section-label">关于我们 / ABOUT</div>
+  <h2 class="section-title glitch neon-hover" data-text="WHO WE ARE">WHO WE ARE</h2>
+  <p class="section-sub">探索信息世界的终极真理，在代码与建模中寻找属于我们的答案。</p>
+
+  <div class="about-content">
+    <div class="terminal-panel">
+      <div class="terminal-header">
+        <span class="terminal-dot r"></span>
+        <span class="terminal-dot y"></span>
+        <span class="terminal-dot g"></span>
+        <span class="terminal-title">about_us.sh</span>
+      </div>
+      <div class="terminal-body">
+        <p><span class="prompt">$</span> <span class="cmd">cat society_info.txt</span></p>
+        <p class="comment"># 社团全称</p>
+        <p><span class="var">name</span>=<span class="string">"千禧年信息真理社"</span></p>
+        <p class="comment"># 所属学校</p>
+        <p><span class="var">school</span>=<span class="string">"南昌市第二中学"</span></p>
+        <p class="comment"># 核心理念</p>
+        <p><span class="var">slogan</span>=<span class="string">"千年科技震撼人心"</span></p>
+        <p class="comment"># 部门构成</p>
+        <p><span class="var">departments</span>=[<span class="string">"编程部"</span>, <span class="string">"建模部"</span>]</p>
+        <p><span class="prompt">$</span> <span class="cmd">_</span></p>
+      </div>
+    </div>
+
+    <div class="about-text">
+      <p>
+        千禧年信息真理社成立于南昌市第二中学，是一个专注于 <strong>信息科技</strong> 与 <strong>数字创作</strong> 的学生社团。
+        我们相信技术是通往真理的道路，代码是表达思想的语言。
+      </p>
+      <p>
+        社团下设 <strong>编程部</strong> 与 <strong>建模部</strong> 两大部门，覆盖从软件开发到三维数字创作的完整技术链条。
+        无论你是对代码充满好奇，还是对数字艺术有浓厚兴趣，都能在这里找到属于自己的位置。
+      </p>
+      <p>
+        我们承诺为每一位社员提供 <strong>零基础友好</strong> 的成长环境，从入门到精通，带你一步步走进充满无限可能的数字世界。
+      </p>
+    </div>
+  </div>
+
+  <div class="about-stats" style="margin-top: 32px;">
+    <div class="stat-card">
+      <div class="stat-number">2</div>
+      <div class="stat-label">核心部门</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">∞</div>
+      <div class="stat-label">技术可能性</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">0</div>
+      <div class="stat-label">基础门槛</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">100%</div>
+      <div class="stat-label">热情接纳</div>
+    </div>
+  </div>
+
+  <div class="carousel-section">
+    <div class="carousel" data-carousel>
+      <div class="carousel-track">
+        <div class="carousel-slide"><img src="A01.jpeg" alt="关于我们01"></div>
+        <div class="carousel-slide"><img src="A02.jpeg" alt="关于我们02"></div>
+        <div class="carousel-slide"><img src="A03.jpeg" alt="关于我们03"></div>
+        <div class="carousel-slide"><img src="A04.jpeg" alt="关于我们04"></div>
+      </div>
+      <button class="carousel-btn prev" data-prev>&#10094;</button>
+      <button class="carousel-btn next" data-next>&#10095;</button>
+      <div class="carousel-indicators" data-indicators></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="departments">
+  <div class="section-label">部门架构 / DEPARTMENTS</div>
+  <h2 class="section-title glitch neon-hover" data-text="OUR STRUCTURE">OUR STRUCTURE</h2>
+  <p class="section-sub">两大核心部门，各展所长，协同并进。</p>
+
+  <div class="dept-grid">
+    <div class="dept-card">
+      <div class="dept-icon">
+        <svg viewBox="0 0 24 24">
+          <polyline points="16 18 22 12 16 6"></polyline>
+          <polyline points="8 6 2 12 8 18"></polyline>
+          <line x1="14" y1="4" x2="10" y2="20"></line>
+        </svg>
+      </div>
+      <h3 class="dept-name">编程部</h3>
+      <span class="dept-tag">DEPT_01</span>
+      <p class="dept-desc">- 成长路径：以Mind+可视化编程为零基础入口，轻松上手硬件开发；支持代码编程进阶，深度对接掌控板，实现交互、传感、控制等多元功能。                                      
+- 赛场角色：比赛中负责整套系统的逻辑编写、调试与运行保障，驱动硬件完成全部预设功能，是作品稳定发挥的核心支柱。                              
+- 加入收获：无需基础门槛即可入门编程与硬件开发，有经验者可直接参与竞赛项目，快速成长为团队的核心技术力量。</p>
+    </div>
+
+    <div class="dept-card">
+      <div class="dept-icon">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+          <path d="M2 17l10 5 10-5"></path>
+          <path d="M2 12l10 5 10-5"></path>
+        </svg>
+      </div>
+      <h3 class="dept-name">建模部</h3>
+      <span class="dept-tag">DEPT_02</span>
+      <p class="dept-desc">- 成长路径：系统学习Blender、Maya三维建模与渲染动画，掌握从数字模型设计到结构优化的完整能力。
+- 赛场角色：比赛中配合编程部推进方案落地，为硬件设备定制精准适配的外壳与机械结构，兼顾美学设计与工程精度。
+- 加入收获：顶配专业设备全力支持——6K配置设计电脑、3万元级超高精度3D打印机、金属激光机与激光切割机，让每一处设计都能精准落地，严丝合缝。</p>
+    </div>
+  </div>
+
+  <div class="carousel-section">
+    <div class="carousel" data-carousel>
+      <div class="carousel-track">
+        <div class="carousel-slide"><img src="B01.jpeg" alt="部门活动01"></div>
+        <div class="carousel-slide"><img src="B02.jpeg" alt="部门活动02"></div>
+        <div class="carousel-slide"><img src="B03.jpeg" alt="部门活动03"></div>
+        <div class="carousel-slide"><img src="B04.jpeg" alt="部门活动04"></div>
+      </div>
+      <button class="carousel-btn prev" data-prev>&#10094;</button>
+      <button class="carousel-btn next" data-next>&#10095;</button>
+      <div class="carousel-indicators" data-indicators></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="activities">
+  <div class="section-label">活动与成果 / ACTIVITIES</div>
+  <h2 class="section-title glitch neon-hover" data-text="OUR WORK">OUR WORK</h2>
+  <p class="section-sub">探索与创造，留下属于我们的数字印记。</p>
+
+  <div class="activity-grid">
+    <div class="activity-img"><img src="H01.jpeg" alt="活动成果01"></div>
+    <div class="activity-img"><img src="H02.jpeg" alt="活动成果02"></div>
+    <div class="activity-img"><img src="H03.jpeg" alt="活动成果03"></div>
+    <div class="activity-img"><img src="H04.jpeg" alt="活动成果04"></div>
+  </div>
+
+  <div class="activity-desc">
+    <p><span class="dash">&gt;</span> 以上以下都只是一个学年的“一部分”</p>
+    <p><span class="dash">&gt;</span> 我社社员上一个学年共三人荣获省级比赛一等奖，市级获奖十余项</p>
+    <p><span class="dash">&gt;</span> 社团的社员们在信息科技领域的探索与实践永不停息</p>
+    <p><span class="dash">&gt;</span> 每一行代码，每一个模型，都会是你我成长的见证</p>
+  </div>
+
+  <div class="carousel-section">
+    <div class="carousel" data-carousel>
+      <div class="carousel-track">
+        <div class="carousel-slide"><img src="C01.jpeg" alt="成果展示01"></div>
+        <div class="carousel-slide"><img src="C02.jpeg" alt="成果展示02"></div>
+        <div class="carousel-slide"><img src="C03.jpeg" alt="成果展示03"></div>
+        <div class="carousel-slide"><img src="C04.jpeg" alt="成果展示04"></div>
+      </div>
+      <button class="carousel-btn prev" data-prev>&#10094;</button>
+      <button class="carousel-btn next" data-next>&#10095;</button>
+      <div class="carousel-indicators" data-indicators></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="why-us">
+  <div class="section-label">为什么加入我们 / WHY JOIN US</div>
+  <h2 class="section-title glitch neon-hover" data-text="CORE BENEFITS">CORE BENEFITS</h2>
+  <p class="section-sub">四个理由，让你毫不犹豫地选择我们。</p>
+
+  <div class="feature-grid">
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24">
+          <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+          <path d="M2 17l10 5 10-5"></path>
+          <path d="M2 12l10 5 10-5"></path>
+        </svg>
+      </div>
+      <div class="feature-num">01</div>
+      <h3 class="neon-hover">零基础友好</h3>
+      <p>完全从零起步，不需要任何编程或建模基础。我们提供系统化的入门培训，带你一步步走进信息科技的大门。</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24">
+          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+        </svg>
+      </div>
+      <div class="feature-num">02</div>
+      <h3 class="neon-hover">技术高速成长</h3>
+      <p>从编程语言到开发工具，从三维建模到数字艺术，全面提升你的技术能力，在实践中快速成长。</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+          <circle cx="9" cy="7" r="4"></circle>
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+          <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+        </svg>
+      </div>
+      <div class="feature-num">03</div>
+      <h3 class="neon-hover">志同道合的伙伴</h3>
+      <p>加入一个充满热情的技术社区，与同样热爱信息科技的同学们一起学习、探索、创造，共同进步。</p>
+    </div>
+
+    <div class="feature-card">
+      <div class="feature-icon">
+        <svg viewBox="0 0 24 24">
+          <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+        </svg>
+      </div>
+      <div class="feature-num">04</div>
+      <h3 class="neon-hover">丰富的赛事资源</h3>
+      <p>参加各类信息学竞赛、编程挑战赛和创意设计比赛，在实战中检验所学，收获荣誉与成长。</p>
+    </div>
+  </div>
+
+  <div class="carousel-section">
+    <div class="carousel" data-carousel>
+      <div class="carousel-track">
+        <div class="carousel-slide"><img src="D01.jpeg" alt="社团风采01"></div>
+        <div class="carousel-slide"><img src="D02.jpeg" alt="社团风采02"></div>
+        <div class="carousel-slide"><img src="D03.jpeg" alt="社团风采03"></div>
+        <div class="carousel-slide"><img src="D04.jpeg" alt="社团风采04"></div>
+      </div>
+      <button class="carousel-btn prev" data-prev>&#10094;</button>
+      <button class="carousel-btn next" data-next>&#10095;</button>
+      <div class="carousel-indicators" data-indicators></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="recruit">
+  <div class="section-label">招新详情 / RECRUITMENT</div>
+  <h2 class="section-title glitch neon-hover" data-text="JOIN US">JOIN US</h2>
+  <p class="section-sub">三步加入千禧年信息真理社，开启你的科技之旅。</p>
+
+  <div class="recruit-flow">
+    <div class="flow-step">
+      <div class="flow-step-num">01</div>
+      <div class="flow-step-title">线下报名</div>
+      <div class="flow-step-desc">前往招新摊位或指定地点<br>完成报名登记</div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-step-num">02</div>
+      <div class="flow-step-title">简单测试</div>
+      <div class="flow-step-desc">参与基础能力测试<br>零基础无需担心</div>
+    </div>
+    <div class="flow-step">
+      <div class="flow-step-num">03</div>
+      <div class="flow-step-title">面试加入</div>
+      <div class="flow-step-desc">创客教室面试<br>通过后正式入社</div>
+    </div>
+  </div>
+
+  <div class="recruit-info">
+    <ul>
+      <li>
+        <span class="key">招新对象</span>
+        <span>仅限高一新生</span>
+      </li>
+      <li>
+        <span class="key">选拔方式</span>
+        <span>线下简单测试 + 面试</span>
+      </li>
+      <li>
+        <span class="key">面试地点</span>
+        <span>创客教室</span>
+      </li>
+      <li>
+        <span class="key">基础要求</span>
+        <span>零基础友好，无需任何技术背景</span>
+      </li>
+    </ul>
+  </div>
+<section class="section" id="faq">
+  <div class="section-label">常见问题 / FAQ</div>
+  <h2 class="section-title glitch neon-hover" data-text="Q &amp; A">Q &amp; A</h2>
+  <p class="section-sub">你可能想知道的，都在这里。</p>
+
+  <div class="faq-list">
+    <div class="faq-item open">
+      <div class="faq-q">
+        <div class="faq-q-text"><span class="q-tag">Q1</span>零基础能加入吗？会不会跟不上？</div>
+        <div class="faq-toggle">+</div>
+      </div>
+      <div class="faq-a">
+        <div class="faq-a-inner">
+          完全可以！我们社团非常欢迎零基础的同学加入。所有培训都从最基础的内容开始，有学长学姐手把手带你入门。只要你对信息科技有兴趣、愿意学习，就一定能跟上节奏。
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">
+        <div class="faq-q-text"><span class="q-tag">Q2</span>社团有什么培训机制？</div>
+        <div class="faq-toggle">+</div>
+      </div>
+      <div class="faq-a">
+        <div class="faq-a-inner">
+          我们有完善的培训体系，定期组织技术分享会、项目实战和学习小组。编程部会从编程语言基础开始教学，建模部会从软件操作入门，循序渐进，确保每位社员都能有所收获。
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">
+        <div class="faq-q-text"><span class="q-tag">Q3</span>社团活动时间会和学习冲突吗？</div>
+        <div class="faq-toggle">+</div>
+      </div>
+      <div class="faq-a">
+        <div class="faq-a-inner">
+          我们充分理解高中学习的重要性，社团活动安排在课余时间进行，不会占用正常上课时间。活动频率适中，如果遇到考试周等特殊时期会灵活调整，确保不影响学业。
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">
+        <div class="faq-q-text"><span class="q-tag">Q4</span>测试难不难？主要考什么内容？</div>
+        <div class="faq-toggle">+</div>
+      </div>
+      <div class="faq-a">
+        <div class="faq-a-inner">
+          测试内容很简单，主要考察你的逻辑思维能力和对信息科技的兴趣程度，不涉及专业知识。零基础的同学完全不用担心，我们更看重的是你的热情和学习潜力。
+        </div>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q">
+        <div class="faq-q-text"><span class="q-tag">Q5</span>可以同时加入两个部门吗？</div>
+        <div class="faq-toggle">+</div>
+      </div>
+      <div class="faq-a">
+        <div class="faq-a-inner">
+          当然可以！如果你对编程和建模都有兴趣，可以选择加入一个主部门，同时参与另一个部门的活动。我们鼓励跨领域学习，全面发展。
+        </div>
+      </div>
+    </div>
+  </div>
+
+<section class="section" id="contact">
+  <div class="section-label">联系我们 / CONTACT</div>
+  <h2 class="section-title glitch neon-hover" data-text="GET IN TOUCH">GET IN TOUCH</h2>
+  <p class="section-sub">有任何疑问，欢迎随时联系我们。</p>
+
+  <div class="contact-wrap">
+    <div class="contact-info">
+      <div class="contact-item">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+            <circle cx="12" cy="10" r="3"></circle>
+          </svg>
+        </div>
+        <div class="contact-item-text">
+          <div class="label">LOCATION / 地点</div>
+          <div class="value">南昌市第二中学 · 创客教室</div>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+          </svg>
+        </div>
+        <div class="contact-item-text">
+          <div class="label">EMAIL / 邮箱</div>
+          <div class="value">___________</div>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+          </svg>
+        </div>
+        <div class="contact-item-text">
+          <div class="label">PHONE / 电话</div>
+          <div class="value">___________</div>
+        </div>
+      </div>
+
+      <div class="contact-item">
+        <div class="contact-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+          </svg>
+        </div>
+        <div class="contact-item-text">
+          <div class="label">WECHAT / 微信</div>
+          <div class="value">___________</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="qr-placeholder">
+      <img src="2.png" alt="二维码" style="width:100%;height:100%;object-fit:contain;">
+    </div>
+  </div>
+
+<footer class="footer"></footer>
+
+<script>
+(function() {
+  const preloader = document.getElementById('preloader');
+  const video = document.getElementById('preloaderVideo');
+  const loadingEl = document.getElementById('preloaderLoading');
+  if (!preloader || !video) return;
+  document.body.style.overflow = 'hidden';
+  let finished = false;
+  video.addEventListener('canplay', function() {
+    if (loadingEl) loadingEl.classList.add('hidden');
+  });
+  video.addEventListener('ended', function() { finishPreloader(); });
+  video.addEventListener('error', function() { setTimeout(finishPreloader, 500); });
+  setTimeout(function() { if (!finished) finishPreloader(); }, 8000);
+  function finishPreloader() {
+    if (finished) return;
+    finished = true;
+    try { video.pause(); } catch(e) {}
+    preloader.classList.add('hidden');
+    setTimeout(function() {
+      preloader.style.display = 'none';
+      document.body.style.overflow = '';
+    }, 800);
+  }
+  preloader.addEventListener('click', function() { finishPreloader(); });
+})();
+
+(function() {
+  const canvas = document.getElementById('codeRainCanvas');
+  const ctx = canvas.getContext('2d');
+  function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+  resize();
+  window.addEventListener('resize', resize);
+  const fontSize = 14;
+  let drops = [];
+  let clickBursts = [];
+  function getBinaryChar() { return Math.random() > 0.5 ? '0' : '1'; }
+  function initDrops() {
+    const columns = Math.floor(canvas.width / fontSize);
+    drops = [];
+    for (let i = 0; i < columns; i++) { drops[i] = Math.random() * -100; }
+  }
+  initDrops();
+  window.addEventListener('resize', initDrops);
+  document.addEventListener('click', function(e) {
+    const burst = { x: e.clientX, y: e.clientY, particles: [], life: 1 };
+    const count = 15;
+    for (let i = 0; i < count; i++) {
+      const angle = (Math.PI * 2 / count) * i + Math.random() * 0.3;
+      const speed = 2 + Math.random() * 4;
+      burst.particles.push({
+        x: e.clientX, y: e.clientY,
+        vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed,
+        char: getBinaryChar(), life: 1, size: 12 + Math.random() * 6
+      });
+    }
+    clickBursts.push(burst);
+    const col = Math.floor(e.clientX / fontSize);
+    if (col >= 0 && col < drops.length) { drops[col] = -5; }
+  });
+  function draw() {
+    ctx.fillStyle = 'rgba(5, 10, 26, 0.08)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.font = fontSize + 'px monospace';
+    for (let i = 0; i < drops.length; i++) {
+      const text = getBinaryChar();
+      const x = i * fontSize;
+      const y = drops[i] * fontSize;
+      const gradient = ctx.createLinearGradient(0, y - 200, 0, y);
+      gradient.addColorStop(0, 'rgba(0, 212, 255, 0)');
+      gradient.addColorStop(0.8, 'rgba(0, 212, 255, 0.15)');
+      gradient.addColorStop(1, 'rgba(0, 255, 234, 0.5)');
+      ctx.fillStyle = gradient;
+      ctx.fillText(text, x, y);
+      if (y > canvas.height && Math.random() > 0.975) { drops[i] = 0; }
+      drops[i] += 0.5 + Math.random() * 0.3;
+    }
+    for (let b = clickBursts.length - 1; b >= 0; b--) {
+      const burst = clickBursts[b];
+      for (let i = 0; i < burst.particles.length; i++) {
+        const p = burst.particles[i];
+        p.x += p.vx; p.y += p.vy; p.vy += 0.08; p.life -= 0.015;
+        if (p.life > 0) {
+          ctx.font = p.size + 'px monospace';
+          ctx.fillStyle = 'rgba(0, 255, 234, ' + p.life + ')';
+          ctx.shadowColor = 'rgba(0, 212, 255, 0.8)';
+          ctx.shadowBlur = 10;
+          ctx.fillText(p.char, p.x, p.y);
+          ctx.shadowBlur = 0;
+        }
+      }
+      burst.life -= 0.01;
+      if (burst.life <= 0) { clickBursts.splice(b, 1); }
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+(function() {
+  const el = document.getElementById('heroTypewriter');
+  if (!el) return;
+  const text = el.textContent;
+  let i = 0;
+  el.textContent = '';
+  function type() {
+    if (i < text.length) {
+      el.textContent += text.charAt(i);
+      i++;
+      setTimeout(type, 50 + Math.random() * 30);
+    }
+  }
+  setTimeout(type, 500);
+})();
+
+(function() {
+  const menuToggle = document.getElementById('menuToggle');
+  const navLinks = document.getElementById('navLinks');
+  menuToggle.addEventListener('click', function() { navLinks.classList.toggle('open'); });
+  const links = navLinks.querySelectorAll('a');
+  links.forEach(function(link) {
+    link.addEventListener('click', function() { navLinks.classList.remove('open'); });
+  });
+})();
+
+(function() {
+  const faqItems = document.querySelectorAll('.faq-item');
+  faqItems.forEach(function(item) {
+    const q = item.querySelector('.faq-q');
+    q.addEventListener('click', function() { item.classList.toggle('open'); });
+  });
+})();
+
+(function() {
+  const carousels = document.querySelectorAll('[data-carousel]');
+  carousels.forEach(function(carousel) {
+    const track = carousel.querySelector('.carousel-track');
+    const slides = carousel.querySelectorAll('.carousel-slide');
+    const prevBtn = carousel.querySelector('[data-prev]');
+    const nextBtn = carousel.querySelector('[data-next]');
+    const indicatorsContainer = carousel.querySelector('[data-indicators]');
+    let current = 0;
+    const total = slides.length;
+    for (let i = 0; i < total; i++) {
+      const dot = document.createElement('button');
+      dot.className = 'carousel-indicator' + (i === 0 ? ' active' : '');
+      dot.setAttribute('aria-label', '第 ' + (i + 1) + ' 张');
+      dot.addEventListener('click', function() { goTo(i); });
+      indicatorsContainer.appendChild(dot);
+    }
+    const indicators = carousel.querySelectorAll('.carousel-indicator');
+    function goTo(index) {
+      current = (index + total) % total;
+      track.style.transform = 'translateX(-' + (current * 100) + '%)';
+      indicators.forEach(function(dot, i) { dot.classList.toggle('active', i === current); });
+    }
+    prevBtn.addEventListener('click', function() { goTo(current - 1); });
+    nextBtn.addEventListener('click', function() { goTo(current + 1); });
+    let touchStartX = 0;
+    let touchEndX = 0;
+    carousel.addEventListener('touchstart', function(e) { touchStartX = e.changedTouches[0].screenX; }, { passive: true });
+    carousel.addEventListener('touchend', function(e) {
+      touchEndX = e.changedTouches[0].screenX;
+      const diff = touchStartX - touchEndX;
+      if (Math.abs(diff) > 50) {
+        if (diff > 0) { goTo(current + 1); } else { goTo(current - 1); }
+      }
+    }, { passive: true });
+  });
+})();
+
+(function() {
+  const sections = document.querySelectorAll('.section');
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+  sections.forEach(function(section) {
+    section.style.opacity = '0';
+    section.style.transform = 'translateY(30px)';
+    section.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+    observer.observe(section);
+  });
+})();
+</script>
+
+</body>
+</html>
